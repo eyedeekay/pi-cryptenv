@@ -1,0 +1,5 @@
+pi-cryptenv (0.1-1) unstable; urgency=medium
+
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- lair repo key <problemsolver@openmailbox.org>  Wed, 16 Aug 2017 03:51:08 -0400
