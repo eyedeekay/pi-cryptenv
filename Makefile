@@ -2,11 +2,15 @@
 DESTDIR = /
 PREFIX = usr/local
 
+XDIR = etc/X11
+
 dummy:
 	@echo
 
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
+	install $(PREFIX)/bin/xsidle.sh $(DESTDIR)$(PREFIX)/bin
+	install $(PREFIX)/bin/securelock $(DESTDIR)$(PREFIX)/bin
 	install $(PREFIX)/bin/unlock-Desktop $(DESTDIR)$(PREFIX)/bin
 	install $(PREFIX)/bin/unlock-Documents $(DESTDIR)$(PREFIX)/bin
 	install $(PREFIX)/bin/unlock-Downloads $(DESTDIR)$(PREFIX)/bin
@@ -30,8 +34,13 @@ install:
 	install $(PREFIX)/bin/lock-Projects $(DESTDIR)$(PREFIX)/bin
 	install $(PREFIX)/bin/lock-Videos $(DESTDIR)$(PREFIX)/bin
 	install $(PREFIX)/bin/lock-ratox $(DESTDIR)$(PREFIX)/bin
+	mkdir -p $(DESTDIR)$(XDIR)/Xsession.d
+	install $(XDIR)/Xsession.d/99xsidle $(DESTDIR)$(XDIR)/Xsession.d
 
 checkscripts:
+	shellcheck -x $(PREFIX)/bin/securelock | tee securelock.sh.check
+	shellcheck -x $(PREFIX)/bin/xsidle.sh | tee xsidle.sh.check
+	shellcheck -x $(XDIR)/Xsession.d/99xsidle | tee -a xsidle.sh.check
 	shellcheck -x $(PREFIX)/bin/unlock-Desktop | tee desktop.sh.check
 	shellcheck -x $(PREFIX)/bin/unlock-Documents | tee documents.sh.check
 	shellcheck -x $(PREFIX)/bin/unlock-Downloads | tee downloads.sh.check

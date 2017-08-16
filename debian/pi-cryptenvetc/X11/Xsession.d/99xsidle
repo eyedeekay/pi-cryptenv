@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# Use xset s $time to control the timeout when this will run.
+#
+
+/usr/local/bin/xsidle.sh /usr/local/bin/securelock &
