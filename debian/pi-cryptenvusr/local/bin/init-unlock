@@ -1,0 +1,13 @@
+#! /usr/bin/env sh
+
+/usr/local/bin/unlock-Videos
+/usr/local/bin/unlock-ratox
+/usr/local/bin/unlock-Music
+/usr/local/bin/unlock-Notes
+/usr/local/bin/unlock-Documents
+/usr/local/bin/unlock-Mail
+/usr/local/bin/unlock-Pictures
+/usr/local/bin/unlock-Projects
+/usr/local/bin/unlock-Messaging
+/usr/local/bin/unlock-Downloads
+/usr/local/bin/unlock-Desktop

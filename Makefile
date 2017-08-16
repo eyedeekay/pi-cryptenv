@@ -9,6 +9,7 @@ dummy:
 
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
+	install $(PREFIX)/bin/init-unlock $(DESTDIR)$(PREFIX)/bin
 	install $(PREFIX)/bin/xsidle.sh $(DESTDIR)$(PREFIX)/bin
 	install $(PREFIX)/bin/securelock $(DESTDIR)$(PREFIX)/bin
 	install $(PREFIX)/bin/unlock-Desktop $(DESTDIR)$(PREFIX)/bin
