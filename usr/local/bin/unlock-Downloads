@@ -1,0 +1,34 @@
+#! /usr/bin/env sh
+
+if [ -f /etc/default/home-defaults ]; then
+        . /etc/default/home-defaults
+else
+        printf "Configuration file /etc/default/home-defaults not found. Aborting.\n"
+
+fi
+
+if [ ! -z "$FIREAXE_downloads_folder" ]; then
+        printf "Downloads Folder is $FIREAXE_downloads_folder \n"
+fi
+
+if [ ! -z "$FIREAXE_downloads_cryptfolder" ]; then
+        printf "Downloads Crypt Folder is $FIREAXE_downloads_cryptfolder \n"
+fi
+
+if [ ! -d "$FIREAXE_downloads_cryptfolder" ]; then
+        if [ -n "$(ls -A $FIREAXE_downloads_folder)" ]; then
+                mv $FIREAXE_downloads_folder "$FIREAXE_downloads_folder/../Downloads.tmp"
+                mkdir -p "$FIREAXE_downloads_cryptfolder" "$FIREAXE_downloads_folder"
+                gocryptfs -raw64 -init "$FIREAXE_downloads_cryptfolder"
+                gocryptfs "$FIREAXE_downloads_cryptfolder" "$FIREAXE_downloads_folder"
+                mv $FIREAXE_downloads_folder/../Downloads.tmp/* "$FIREAXE_downloads_folder/"
+                rm -rf $FIREAXE_downloads_folder/../Downloads.tmp/
+        else
+                mkdir -p "$FIREAXE_downloads_cryptfolder" "$FIREAXE_downloads_folder"
+                gocryptfs -raw64 -init "$FIREAXE_downloads_cryptfolder"
+                gocryptfs "$FIREAXE_downloads_cryptfolder" "$FIREAXE_downloads_folder"
+        fi
+        printf "failed to initialize encrypted volume \n"
+fi
+
+gocryptfs "$FIREAXE_downloads_cryptfolder" "$FIREAXE_downloads_folder"
