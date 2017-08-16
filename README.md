@@ -60,3 +60,15 @@ mount point. If there isn't anything in the $HOME/Documents folder then it will
 just initialize the gocryptfs volume and mount point. If a gocryptfs volume has
 already been initialized, it will prompt for the volume password.
 
+Each individual volume that you use the unlock wrappers for can be assigned an
+entirely different password.
+
+How it Works: Use with xset
+===========================
+
+I use it in conjunction with xset, by having xset launch the lock-All script and
+the slock screensaver by running another wrapper script securelock. It adds a
+script to the /etc/X11/Xsession.d which runs /usr/local/bin/xsidle.sh
+securelock, which makes sure that the folders are all locked when the screen
+locker starts.
+

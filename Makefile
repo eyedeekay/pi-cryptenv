@@ -3,6 +3,7 @@ DESTDIR = /
 PREFIX = usr/local
 
 XDIR = etc/X11
+CONFDIR = etc/default
 
 dummy:
 	@echo
@@ -11,7 +12,7 @@ install:
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
 	install $(PREFIX)/bin/init-unlock $(DESTDIR)$(PREFIX)/bin
 	install $(PREFIX)/bin/xsidle.sh $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/securelock $(DESTDIR)$(PREFIX)/bin
+	install $(PREFIX)/bin/secure-lock $(DESTDIR)$(PREFIX)/bin
 	install $(PREFIX)/bin/unlock-Desktop $(DESTDIR)$(PREFIX)/bin
 	install $(PREFIX)/bin/unlock-Documents $(DESTDIR)$(PREFIX)/bin
 	install $(PREFIX)/bin/unlock-Downloads $(DESTDIR)$(PREFIX)/bin
@@ -35,6 +36,8 @@ install:
 	install $(PREFIX)/bin/lock-Projects $(DESTDIR)$(PREFIX)/bin
 	install $(PREFIX)/bin/lock-Videos $(DESTDIR)$(PREFIX)/bin
 	install $(PREFIX)/bin/lock-ratox $(DESTDIR)$(PREFIX)/bin
+	mkdir -p $(CONFDIR) $(DESTDIR)$(CONFDIR)
+	install $(CONFDIR)/home-defaults $(DESTDIR)$(CONFDIR)/home-defaults
 	mkdir -p $(DESTDIR)$(XDIR)/Xsession.d
 	install $(XDIR)/Xsession.d/99xsidle $(DESTDIR)$(XDIR)/Xsession.d
 
