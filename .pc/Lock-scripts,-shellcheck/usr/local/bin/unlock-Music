@@ -1,0 +1,34 @@
+#! /usr/bin/env sh
+
+if [ -f /etc/default/home-defaults ]; then
+        . /etc/default/home-defaults
+else
+        printf "Configuration file /etc/default/home-defaults not found. Aborting.\n"
+
+fi
+
+if [ ! -z "$FIREAXE_music_folder" ]; then
+        printf "Music Folder is $FIREAXE_music_folder \n"
+fi
+
+if [ ! -z "$FIREAXE_music_cryptfolder" ]; then
+        printf "Music Crypt Folder is $FIREAXE_music_cryptfolder \n"
+fi
+
+if [ ! -d "$FIREAXE_music_cryptfolder" ]; then
+        if [ -n "$(ls -A $FIREAXE_music_folder)" ]; then
+                mv $FIREAXE_music_folder "$FIREAXE_music_folder/../Music.tmp"
+                mkdir -p "$FIREAXE_music_cryptfolder" "$FIREAXE_music_folder"
+                gocryptfs -raw64 -init "$FIREAXE_music_cryptfolder"
+                gocryptfs "$FIREAXE_music_cryptfolder" "$FIREAXE_music_folder"
+                mv $FIREAXE_music_folder/../Music.tmp/* "$FIREAXE_music_folder/"
+                rm -rf $FIREAXE_music_folder/../Music.tmp/
+        else
+                mkdir -p "$FIREAXE_music_cryptfolder" "$FIREAXE_music_folder"
+                gocryptfs -raw64 -init "$FIREAXE_music_cryptfolder"
+                gocryptfs "$FIREAXE_music_cryptfolder" "$FIREAXE_music_folder"
+        fi
+        printf "failed to initialize encrypted volume \n"
+fi
+
+gocryptfs "$FIREAXE_music_cryptfolder" "$FIREAXE_music_folder"

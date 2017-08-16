@@ -1,0 +1,65 @@
+#! /usr/bin/env sh
+
+if [ -f /etc/default/home-defaults ]; then
+        . /etc/default/home-defaults
+else
+        printf "Configuration file /etc/default/home-defaults not found. Aborting.\n"
+fi
+
+FIREAXE_gocryptfs_lock_volume(){
+        fusermount -u "$1"
+}
+FIREAXE_gocryptfs_lock_all(){
+        FIREAXE_gocryptfs_lock_volume "$FIREAXE_documents_folder"
+        FIREAXE_gocryptfs_lock_volume "$FIREAXE_pictures_folder"
+        FIREAXE_gocryptfs_lock_volume "$FIREAXE_music_folder"
+        FIREAXE_gocryptfs_lock_volume "$FIREAXE_videos_folder"
+        FIREAXE_gocryptfs_lock_volume "$FIREAXE_notes_folder"
+        FIREAXE_gocryptfs_lock_volume "$FIREAXE_downloads_folder"
+        FIREAXE_gocryptfs_lock_volume "$FIREAXE_messaging_folder"
+        FIREAXE_gocryptfs_lock_volume "$FIREAXE_mail_folder"
+        FIREAXE_gocryptfs_lock_volume "$FIREAXE_ratox_folder"
+        FIREAXE_gocryptfs_lock_volume "$FIREAXE_desktop_folder"
+        FIREAXE_gocryptfs_lock_volume "$FIREAXE_projects_folder"
+}
+
+if [ ! -z "$1" ]; then
+        if [ "$1" = "Documents" ]; then
+                echo "unmounting Documents"
+                FIREAXE_gocryptfs_lock_volume "$FIREAXE_documents_folder"
+        elif [ "$1" = "Pictures" ]; then
+                echo "unmounting Pictures"
+                FIREAXE_gocryptfs_lock_volume "$FIREAXE_pictures_folder"
+        elif [ "$1" = "Music" ]; then
+                echo "unmounting Music"
+                FIREAXE_gocryptfs_lock_volume "$FIREAXE_music_folder"
+        elif [ "$1" = "Videos" ]; then
+                echo "unmounting Videos"
+                FIREAXE_gocryptfs_lock_volume "$FIREAXE_videos_folder"
+        elif [ "$1" = "Notes" ]; then
+                echo "unmounting Notes"
+                FIREAXE_gocryptfs_lock_volume "$FIREAXE_notes_folder"
+        elif [ "$1" = "Downloads" ]; then
+                echo "unmounting Downloads"
+                FIREAXE_gocryptfs_lock_volume "$FIREAXE_downloads_folder"
+        elif [ "$1" = "Messaging" ]; then
+                echo "unmounting Messaging"
+                FIREAXE_gocryptfs_lock_volume "$FIREAXE_messaging_folder"
+        elif [ "$1" = "Mail" ]; then
+                echo "unmounting Mail"
+                FIREAXE_gocryptfs_lock_volume "$FIREAXE_mail_folder"
+        elif [ "$1" = "Tox" ]; then
+                echo "unmounting Tox"
+                FIREAXE_gocryptfs_lock_volume "$FIREAXE_ratox_folder"
+        elif [ "$1" = "Desktop" ]; then
+                echo "unmounting Desktop"
+                FIREAXE_gocryptfs_lock_volume "$FIREAXE_desktop_folder"
+        elif [ "$1" = "Projects" ]; then
+                echo "unmounting Projects"
+                FIREAXE_gocryptfs_lock_volume "$FIREAXE_projects_folder"
+        else
+                FIREAXE_gocryptfs_lock_all
+        fi
+else
+        FIREAXE_gocryptfs_lock_all
+fi

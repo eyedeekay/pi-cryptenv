@@ -1,0 +1,13 @@
+#! /usr/bin/env sh
+
+if [ -f /etc/default/home-defaults ]; then
+        . /etc/default/home-defaults
+else
+        printf "Configuration file /etc/default/home-defaults not found. Aborting.\n"
+fi
+
+FIREAXE_gocryptfs_lock_volume(){
+        fusermount -u "$1"
+}
+
+FIREAXE_gocryptfs_lock_volume "$FIREAXE_projects_folder"
