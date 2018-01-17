@@ -1,9 +1,9 @@
 #! /usr/bin/env sh
 
-if [ -f /etc/default/home-defaults ]; then
-        . /etc/default/home-defaults
+if [ -f /etc/postinstall/home-defaults ]; then
+        . /etc/postinstall/home-defaults
 else
-        printf "Configuration file /etc/default/home-defaults not found. Aborting.\n"
+        printf "Configuration file /etc/postinstall/home-defaults not found. Aborting.\n"
 fi
 
 FIREAXE_gocryptfs_lock_volume(){
