@@ -10,41 +10,44 @@ dummy:
 
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/init-unlock $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/xsidle.sh $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/secure-lock $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/unlock-Desktop $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/unlock-Documents $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/unlock-Downloads $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/unlock-Mail $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/unlock-Messaging $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/unlock-Music $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/unlock-Notes $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/unlock-Pictures $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/unlock-Projects $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/unlock-Videos $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/unlock-ratox $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/lock-All $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/lock-Desktop $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/lock-Documents $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/lock-Downloads $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/lock-Mail $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/lock-Messaging $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/lock-Music $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/lock-Notes $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/lock-Pictures $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/lock-Projects $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/lock-Videos $(DESTDIR)$(PREFIX)/bin
-	install $(PREFIX)/bin/lock-ratox $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/init-unlock $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/xsidle.sh $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/secure-lock $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/unlock $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/unlock-Desktop $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/unlock-Documents $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/unlock-Downloads $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/unlock-Mail $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/unlock-Messaging $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/unlock-Music $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/unlock-Notes $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/unlock-Pictures $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/unlock-Projects $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/unlock-Videos $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/unlock-ratox $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/lock $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/lock-All $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/lock-Desktop $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/lock-Documents $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/lock-Downloads $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/lock-Mail $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/lock-Messaging $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/lock-Music $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/lock-Notes $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/lock-Pictures $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/lock-Projects $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/lock-Videos $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(PREFIX)/bin/lock-ratox $(DESTDIR)$(PREFIX)/bin
 	mkdir -p $(CONFDIR) $(DESTDIR)$(CONFDIR)
 	install $(CONFDIR)/home-defaults $(DESTDIR)$(CONFDIR)/home-defaults
 	mkdir -p $(DESTDIR)$(XDIR)/Xsession.d
-	install $(XDIR)/Xsession.d/99xsidle $(DESTDIR)$(XDIR)/Xsession.d
+	install -m755 $(XDIR)/Xsession.d/99xsidle $(DESTDIR)$(XDIR)/Xsession.d
 
 checkscripts:
 	shellcheck -x $(PREFIX)/bin/securelock | tee securelock.sh.check
 	shellcheck -x $(PREFIX)/bin/xsidle.sh | tee xsidle.sh.check
 	shellcheck -x $(XDIR)/Xsession.d/99xsidle | tee -a xsidle.sh.check
+	shellcheck -x $(PREFIX)/bin/unlock | tee unlock.sh.check
 	shellcheck -x $(PREFIX)/bin/unlock-Desktop | tee desktop.sh.check
 	shellcheck -x $(PREFIX)/bin/unlock-Documents | tee documents.sh.check
 	shellcheck -x $(PREFIX)/bin/unlock-Downloads | tee downloads.sh.check
@@ -56,6 +59,7 @@ checkscripts:
 	shellcheck -x $(PREFIX)/bin/unlock-Projects | tee projects.sh.check
 	shellcheck -x $(PREFIX)/bin/unlock-Videos | tee videos.sh.check
 	shellcheck -x $(PREFIX)/bin/unlock-ratox | tee ratox.sh.check
+	shellcheck -x $(PREFIX)/bin/lock | tee lock.sh.check
 	shellcheck -x $(PREFIX)/bin/lock-All | tee lockall.sh.check
 	shellcheck -x $(PREFIX)/bin/lock-Desktop | tee -a desktop.sh.check
 	shellcheck -x $(PREFIX)/bin/lock-Documents | tee -a documents.sh.check
