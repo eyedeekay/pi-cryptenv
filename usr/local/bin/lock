@@ -6,6 +6,8 @@ else
         printf "Configuration file /etc/default/home-defaults not found. Aborting.\n"
 fi
 
-export PLAIN_FOLDER="$FIREAXE_downloads_folder"
+FIREAXE_gocryptfs_lock_volume(){
+        fusermount -u "$1"
+}
 
-lock
+FIREAXE_gocryptfs_lock_volume "$PLAIN_FOLDER"

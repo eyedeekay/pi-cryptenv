@@ -1,0 +1,27 @@
+#! /usr/bin/env sh
+
+if [ ! -z "$FOLDER" ]; then
+        printf "Desktop Folder is %s \n" "$PLAIN_FOLDER"
+fi
+
+if [ ! -z "$FOLDER" ]; then
+        printf "Desktop Crypt Folder is %s \n" "$PLAIN_FOLDER"
+fi
+
+if [ ! -d "$FOLDER" ]; then
+        if [ -n "$(ls -A "$PLAIN_FOLDER")" ]; then
+                mv "$PLAIN_FOLDER" "$PLAIN_FOLDER/../Desktop.tmp"
+                mkdir -p "$FOLDER" "$PLAIN_FOLDER"
+                gocryptfs -raw64 -init "$FOLDER"
+                gocryptfs "$FOLDER" "$PLAIN_FOLDER"
+                mv "$PLAIN_FOLDER/../Desktop.tmp/"* "$PLAIN_FOLDER/"
+                rm -rf "$PLAIN_FOLDER/../Desktop.tmp/"
+        else
+                mkdir -p "$FOLDER" "$PLAIN_FOLDER"
+                gocryptfs -raw64 -init "$FOLDER"
+                gocryptfs "$FOLDER" "$PLAIN_FOLDER"
+        fi
+        printf "failed to initialize encrypted volume \n"
+fi
+
+gocryptfs "$FOLDER" "$PLAIN_FOLDER"

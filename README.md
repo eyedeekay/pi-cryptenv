@@ -21,7 +21,7 @@ How it works:
 
 First, it works best if you do this on a freshly installed GNU/Linux system with
 more-or-less common default folders in $HOME. To use it, you'll need to create
-a configuration file called: /etc/default/home-defaults which contains the
+a configuration file called: /etc/postinstall/home-defaults which contains the
 following variables:
 
         #! /usr/bin/env sh

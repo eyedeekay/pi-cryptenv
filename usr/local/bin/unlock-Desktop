@@ -6,28 +6,8 @@ else
         printf "Configuration file /etc/default/home-defaults not found. Aborting.\n"
 fi
 
-if [ ! -z "$FIREAXE_desktop_folder" ]; then
-        printf "Desktop Folder is %s \n" "$FIREAXE_desktop_folder"
-fi
 
-if [ ! -z "$FIREAXE_desktop_cryptfolder" ]; then
-        printf "Desktop Crypt Folder is %s \n" "$FIREAXE_desktop_folder"
-fi
+export PLAIN_FOLDER="$FIREAXE_desktop_folder"
+export FOLDER="$FIREAXE_desktop_cryptfolder"
 
-if [ ! -d "$FIREAXE_desktop_cryptfolder" ]; then
-        if [ -n "$(ls -A "$FIREAXE_desktop_folder")" ]; then
-                mv "$FIREAXE_desktop_folder" "$FIREAXE_desktop_folder/../Desktop.tmp"
-                mkdir -p "$FIREAXE_desktop_cryptfolder" "$FIREAXE_desktop_folder"
-                gocryptfs -raw64 -init "$FIREAXE_desktop_cryptfolder"
-                gocryptfs "$FIREAXE_desktop_cryptfolder" "$FIREAXE_desktop_folder"
-                mv "$FIREAXE_desktop_folder/../Desktop.tmp/"* "$FIREAXE_desktop_folder/"
-                rm -rf "$FIREAXE_desktop_folder/../Desktop.tmp/"
-        else
-                mkdir -p "$FIREAXE_desktop_cryptfolder" "$FIREAXE_desktop_folder"
-                gocryptfs -raw64 -init "$FIREAXE_desktop_cryptfolder"
-                gocryptfs "$FIREAXE_desktop_cryptfolder" "$FIREAXE_desktop_folder"
-        fi
-        printf "failed to initialize encrypted volume \n"
-fi
-
-gocryptfs "$FIREAXE_desktop_cryptfolder" "$FIREAXE_desktop_folder"
+unlock

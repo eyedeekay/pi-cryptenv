@@ -7,28 +7,7 @@ else
 
 fi
 
-if [ ! -z "$FIREAXE_downloads_folder" ]; then
-        printf "Downloads Folder is %s \n" "$FIREAXE_downloads_folder"
-fi
+export PLAIN_FOLDER="$FIREAXE_downloads_folder"
+export FOLDER="$FIREAXE_downloads_cryptfolder"
 
-if [ ! -z "$FIREAXE_downloads_cryptfolder" ]; then
-        printf "Downloads Crypt Folder is %s \n" "$FIREAXE_downloads_cryptfolder"
-fi
-
-if [ ! -d "$FIREAXE_downloads_cryptfolder" ]; then
-        if [ -n "$(ls -A "$FIREAXE_downloads_folder")" ]; then
-                mv "$FIREAXE_downloads_folder" "$FIREAXE_downloads_folder/../Downloads.tmp"
-                mkdir -p "$FIREAXE_downloads_cryptfolder" "$FIREAXE_downloads_folder"
-                gocryptfs -raw64 -init "$FIREAXE_downloads_cryptfolder"
-                gocryptfs "$FIREAXE_downloads_cryptfolder" "$FIREAXE_downloads_folder"
-                mv "$FIREAXE_downloads_folder/../Downloads.tmp/"* "$FIREAXE_downloads_folder/"
-                rm -rf "$FIREAXE_downloads_folder/../Downloads.tmp/"
-        else
-                mkdir -p "$FIREAXE_downloads_cryptfolder" "$FIREAXE_downloads_folder"
-                gocryptfs -raw64 -init "$FIREAXE_downloads_cryptfolder"
-                gocryptfs "$FIREAXE_downloads_cryptfolder" "$FIREAXE_downloads_folder"
-        fi
-        printf "failed to initialize encrypted volume \n"
-fi
-
-gocryptfs "$FIREAXE_downloads_cryptfolder" "$FIREAXE_downloads_folder"
+unlock

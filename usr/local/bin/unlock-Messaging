@@ -7,28 +7,7 @@ else
 
 fi
 
-if [ ! -z "$FIREAXE_messaging_folder" ]; then
-        printf "Messaging Folder is %s \n" "$FIREAXE_messaging_folder"
-fi
+export PLAIN_FOLDER="$FIREAXE_messaging_folder"
+export FOLDER="$FIREAXE_messaging_cryptfolder"
 
-if [ ! -z "$FIREAXE_messaging_cryptfolder" ]; then
-        printf "Messaging Crypt Folder is %s \n" "$FIREAXE_messaging_cryptfolder"
-fi
-
-if [ ! -d "$FIREAXE_messaging_cryptfolder" ]; then
-        if [ -n "$(ls -A "$FIREAXE_messaging_folder")" ]; then
-                mv "$FIREAXE_messaging_folder" "$FIREAXE_messaging_folder/../Messaging.tmp"
-                mkdir -p "$FIREAXE_messaging_cryptfolder" "$FIREAXE_messaging_folder"
-                gocryptfs -raw64 -init "$FIREAXE_messaging_cryptfolder"
-                gocryptfs "$FIREAXE_messaging_cryptfolder" "$FIREAXE_messaging_folder"
-                mv "$FIREAXE_messaging_folder/../Messaging.tmp/"* "$FIREAXE_messaging_folder/"
-                rm -rf "$FIREAXE_messaging_folder/../Messaging.tmp/"
-        else
-                mkdir -p "$FIREAXE_messaging_cryptfolder" "$FIREAXE_messaging_folder"
-                gocryptfs -raw64 -init "$FIREAXE_messaging_cryptfolder"
-                gocryptfs "$FIREAXE_messaging_cryptfolder" "$FIREAXE_messaging_folder"
-        fi
-        printf "failed to initialize encrypted volume \n"
-fi
-
-gocryptfs "$FIREAXE_messaging_cryptfolder" "$FIREAXE_messaging_folder"
+unlock

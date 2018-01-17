@@ -3,7 +3,7 @@ DESTDIR = /
 PREFIX = usr/local
 
 XDIR = etc/X11
-CONFDIR = etc/default
+CONFDIR = etc/postinstall
 
 dummy:
 	@echo

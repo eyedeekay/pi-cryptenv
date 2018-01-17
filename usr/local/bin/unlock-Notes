@@ -7,28 +7,7 @@ else
 
 fi
 
-if [ ! -z "$FIREAXE_notes_folder" ]; then
-        printf "Notes Folder is %s \n" "$FIREAXE_notes_folder"
-fi
+export PLAIN_FOLDER="$FIREAXE_notes_folder"
+export FOLDER="$FIREAXE_notes_cryptfolder"
 
-if [ ! -z "$FIREAXE_notes_cryptfolder" ]; then
-        printf "Notes Crypt Folder is %s \n" "$FIREAXE_notes_cryptfolder"
-fi
-
-if [ ! -d "$FIREAXE_notes_cryptfolder" ]; then
-        if [ -n "$(ls -A "$FIREAXE_notes_folder")" ]; then
-                mv "$FIREAXE_notes_folder" "$FIREAXE_notes_folder/../Notes.tmp"
-                mkdir -p "$FIREAXE_notes_cryptfolder" "$FIREAXE_notes_folder"
-                gocryptfs -raw64 -init "$FIREAXE_notes_cryptfolder"
-                gocryptfs "$FIREAXE_notes_cryptfolder" "$FIREAXE_notes_folder"
-                mv "$FIREAXE_notes_folder/../Notes.tmp/"* "$FIREAXE_notes_folder/"
-                rm -rf "$FIREAXE_notes_folder/../Notes.tmp/"
-        else
-                mkdir -p "$FIREAXE_notes_cryptfolder" "$FIREAXE_notes_folder"
-                gocryptfs -raw64 -init "$FIREAXE_notes_cryptfolder"
-                gocryptfs "$FIREAXE_notes_cryptfolder" "$FIREAXE_notes_folder"
-        fi
-        printf "failed to initialize encrypted volume \n"
-fi
-
-gocryptfs "$FIREAXE_notes_cryptfolder" "$FIREAXE_notes_folder"
+unlock
