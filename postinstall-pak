@@ -1,3 +1,23 @@
 #! /usr/bin/env sh
 
-#init-unlock
+setup_warning="You are about to initialize encrypted folders in your home"
+setup_warning="$setup_warning directory. Some of these folders may correspond"
+setup_warning="$setup_warning to folders with files in them already. Dealing"
+setup_warning="$setup_warning with this gets complicated, and in rare "
+setup_warning="$setup_warning circumstances, data loss may occur if the backup"
+setup_warning="$setup_warning process is interrupted. If this is a fresh"
+setup_warning="$setup_warning install, there is virtually no risk.
+
+Do you wish to continue?"
+
+input=$(dialog --title 'Setting up the Postinstall Encrypted Environment' \
+    --yesno "$setup_warning" 0 0 --output-fd 1)
+doit="$?"
+
+if [ "$doit" = "0" ]; then
+    init-unlock
+else
+    echo "no"
+fi
+
+
